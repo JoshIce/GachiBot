@@ -44,7 +44,7 @@ var _getAllFilesFromFolder = function(dir) {
 
 };
 
-//TODO: I FORGOT
+//TODO: Possibly use CronJobs to scan the directory every two minutes (probably bad)
 new CronJob('2 * * * *', function() {
   console.log('You will see this message every two minutes');
 }, null, true, 'America/Los_Angeles');
