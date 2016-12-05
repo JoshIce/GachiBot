@@ -6,8 +6,9 @@ var formidable = require('express-formidable');
 var CronJob = require('cron').CronJob;
 var path = require('path');
 var fs = require('fs')
+require('./sensitive.js')
 var app = express();
-nunjucks.configure('views', {
+nunjucks.configure('templates', {
 	autoescape: true,
 	express: app
 });
@@ -17,9 +18,10 @@ app.use(formidable({
   keepExtensions: true,
 }));
 app.use(session({
-	secret: "This is a super secure secret because I used the phrase G A C H I"
+	secret: MySecret
 }));
 app.engine('njk', nunjucks.render);
+app.set('view engine', 'njk')
 app.use(flashy());
 
 var _getAllFilesFromFolder = function(dir) {
@@ -42,7 +44,8 @@ var _getAllFilesFromFolder = function(dir) {
 
 };
 
-new CronJob('0,2 * * * *', function() {
+//TODO: I FORGOT
+new CronJob('2 * * * *', function() {
   console.log('You will see this message every two minutes');
 }, null, true, 'America/Los_Angeles');
 
@@ -67,7 +70,7 @@ app.post('/upload', (req, res) => {
 
 app.get('/flashy', function(req, res) {
 	req.flashy('info', 'Flash messages made simple!');
-	
+
 	res.redirect('/');
 });
 
