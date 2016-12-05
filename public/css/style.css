@@ -1,0 +1,60 @@
+body {
+	background-image: url(../images/gachi.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	background-color: #4f4747;
+	width: 100%;
+}
+
+.title {
+	font-size: 48px;
+	color: #DDD;
+	text-align: center;
+}
+
+.form * {
+	width: 100%;
+}
+
+.container {
+	width: 60%;
+	margin-top: 43em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+		background-color: #DDD;
+		text-align: center;
+		margin-top: 1em;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
