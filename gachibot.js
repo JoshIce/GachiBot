@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
+var config = JSON.parse(
+	fs.readFileSync('config.json')
+);
 var winston = require('winston')
 var CronJob = require('cron').CronJob;
 winston.add(winston.transports.File, {filename: 'log.log' });
@@ -49,7 +52,9 @@ client.on('message', msg => {
 	var commands = {};
 	for (filename of filenames) {
 		let splitfile = filename.split(".")
-		commands[prefix + splitfile[0]] = splitfile[0] + "." + splitfile[1];
+		if (splitfile[1] != "exe") {
+			commands[prefix + splitfile[0]] = splitfile[0] + "." + splitfile[1];
+		}
 	};
 
 	if (msg.content.toLowerCase() === "!commands"){
@@ -79,7 +84,7 @@ require("./app.js")
 
 client.on('disconnect', function(erMsg, code) {
     console.log('----- Bot disconnected from Discord with code', code, 'for reason:', erMsg, '-----');
-		client.login(MyKey);
+		client.login(config.key);
 });
 
-client.login(MyKey);
+client.login(config.key);
