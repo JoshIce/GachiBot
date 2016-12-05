@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jebaited</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="js/nunjucks.min.js"></script>
+</head>
+<body>
+{{ flashy() | safe}}
+<header>
+<div class="title">Jebaited</div>
+</header>
+<main>
+<div class="container">
+  <form class="form" action="/upload" enctype="multipart/form-data" method="post">
+    <input type="text" name="command" placeholder="Name of Your Command"><br>
+    <div class="fileUpload">
+      <span>Select Your File</span>
+      <input type="file" name="file" class="upload" />
+    </div><br>
+    <input type="submit" value="Upload">
+  </form>
+</div>
+</main>
+<footer>
+
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</body>
+</html>
