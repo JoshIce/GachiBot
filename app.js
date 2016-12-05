@@ -6,11 +6,14 @@ var formidable = require('express-formidable');
 var CronJob = require('cron').CronJob;
 var path = require('path');
 var fs = require('fs');
-require('./sensitive.js');
+var config = JSON.parse(
+	fs.readFileSync('config.json')
+);
 var app = express();
 nunjucks.configure('templates', {
 	autoescape: true,
-	express: app
+	express: app,
+	watch: true
 });
 app.use('/', express.static('public'));
 app.use(formidable({
@@ -18,7 +21,7 @@ app.use(formidable({
   keepExtensions: true,
 }));
 app.use(session({
-	secret: MySecret
+	secret: config.secret
 }));
 app.engine('njk', nunjucks.render);
 app.set('view engine', 'njk')
@@ -51,25 +54,41 @@ new CronJob('2 * * * *', function() {
 
 //TODO: convert all files to .dca format for faster playback (https://github.com/nstafie/dca-rs)
 app.post('/upload', (req, res) => {
-	if (!(req.files == {})) {
-		var nameext = req.files.file.path.split(".")
+	if (!(req.files.file.name == "") && req.fields['command'].length > 0) {
 		var currentFiles = _getAllFilesFromFolder("sounds/");
 		var fileExists = false;
 		for (var i=0; i < currentFiles.length; i++){
-			if (currentFiles[i] == req.files.file.path) {fileExists = true};
+			if (currentFiles[i].split(".")[0].replace("sounds//", "").toLowerCase() == req.fields['command'].toLowerCase()) {fileExists = true};
 		};
 		if (fileExists) {
-			res.redirect('/flashy');
+			fs.unlink(req.files.file.path);
+			res.redirect('/fileexists');
 		} else {
+			var nameext = req.files.file.path.split(".")
 			var newFileName = (req.fields['command'].toLowerCase()) + "." + (nameext[1].toLowerCase());
 			fs.rename(req.files.file.path, 'sounds/' + newFileName);
-			res.redirect('/');
+			res.redirect('/success');
 		};
+	} else {
+		res.redirect('/missinginfo')
+		fs.unlink(req.files.file.path);
 	}
 });
 
-app.get('/flashy', function(req, res) {
-	req.flashy('info', 'Flash messages made simple!');
+app.get('/fileexists', function(req, res) {
+	req.flashy('error', "Command already exists. Choose a different name.");
+
+	res.redirect('/');
+});
+
+app.get('/missinginfo', function(req, res) {
+	req.flashy('error', "No file selected or no name provided. Make sure to choose a name and a file for your command.");
+
+	res.redirect('/');
+});
+
+app.get('/success', function(req, res) {
+	req.flashy('success', "File successfully uploaded!");
 
 	res.redirect('/');
 });
