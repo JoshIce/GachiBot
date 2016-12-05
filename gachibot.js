@@ -44,14 +44,14 @@ client.on('ready', () => {
 client.on('message', msg => {
 	if (!msg.content.startsWith(prefix)) return;
   if (msg.author.bot) return;
-	
+
 	let filenames = fs.readdirSync("sounds");
 	var commands = {};
 	for (filename of filenames) {
 		let splitfile = filename.split(".")
 		commands[prefix + splitfile[0]] = splitfile[0] + "." + splitfile[1];
 	};
-	
+
 	if (msg.content.toLowerCase() === "!commands"){
 		commandsMessage = "";
 		Object.keys(commands).forEach(function(key) {
@@ -70,16 +70,16 @@ client.on('message', msg => {
 		};
 	};
 });
-	
+
 eventify(playQueue, function(tempQueue){
 	return;
 });
 
+require("./app.js")
+
 client.on('disconnect', function(erMsg, code) {
     console.log('----- Bot disconnected from Discord with code', code, 'for reason:', erMsg, '-----');
-		client.login(***REMOVED***);
+		client.login(MyKey);
 });
 
-client.login(***REMOVED***);
-
-require("./app.js")
+client.login(MyKey);
