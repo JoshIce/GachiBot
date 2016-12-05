@@ -5,8 +5,8 @@ var flashy = require('express-flashy')
 var formidable = require('express-formidable');
 var CronJob = require('cron').CronJob;
 var path = require('path');
-var fs = require('fs')
-require('./sensitive.js')
+var fs = require('fs');
+require('./sensitive.js');
 var app = express();
 nunjucks.configure('templates', {
 	autoescape: true,
