@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  {% block head %}{% endblock %}
+  {% block css %}{% endblock %}
+  {% block jsincludes %}{% endblock %}
+</head>
+<body>
+{% block prebody %}{% endblock %}
+<nav>
+{% block nav %}{% endblock %}
+</nav>
+<header>
+{% block header %}{% endblock %}
+</header>
+<main>
+{% block main %}{% endblock %}
+</main>
+<footer>
+{% block footer %}{% endblock %}
+</footer>
+{% block postbody %}{% endblock %}
+{% block js %}{% endblock %}
+</body>
+</html>

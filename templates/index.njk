@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+{% extends "base.njk" %}
+{% block head %}
 <title>Jebaited</title>
+{% endblock %}
+{% block css %}
 <link rel="stylesheet" type="text/css" href="css/style.css">
+{% endblock %}
+{% block jsincludes %}
 <script src="js/nunjucks.min.js"></script>
-</head>
-<body>
+{% endblock %}
+{% block prebody %}
 {{ flashy() | safe}}
-<header>
+{% endblock %}
+{% block header %}
 <div class="title">Jebaited</div>
-</header>
-<main>
+{% endblock %}
+{% block main %}
 <div class="container">
   <form class="form" action="/upload" enctype="multipart/form-data" method="post">
     <input type="text" name="command" placeholder="Name of Your Command"><br>
@@ -22,10 +25,9 @@
     <input type="submit" value="Upload">
   </form>
 </div>
-</main>
-<footer>
-
-</footer>
+{% endblock %}
+{% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% endblock %}
 </body>
 </html>
