@@ -1,0 +1,27 @@
+{
+  "name": "gachibot",
+  "version": "1.0.0",
+  "description": "A Discord bot that allows its server's users to add custom sound commands. Similar to Airhorn Bot but with the added feature of being able to add custom sounds.",
+  "main": "gachibot.js",
+  "dependencies": {
+    "discord.js": "^10.0.1",
+    "express": "^4.14.0",
+    "express-formidable": "^1.0.0",
+    "ffmpeg": "^0.0.4",
+    "formidable": "^1.0.17",
+    "httpdispatcher": "^2.0.1",
+    "node-opus": "^0.2.4",
+    "nunjucks": "^3.0.0",
+    "opusscript": "^0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "keywords": [
+    "Discord",
+    "Bot"
+  ],
+  "author": "Vegakuma",
+  "license": "MIT"
+}
