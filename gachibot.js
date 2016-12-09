@@ -42,7 +42,7 @@ client.on('ready', () => {
 function handlePlayQueue(connection)
 {
 	//just in case...
-	if (playQueue.length == 0) 
+	if (playQueue.length == 0)
 	{
 		console.log("debug", "handlePlayQueue called with playQueue of length 0");
 		return;
@@ -51,8 +51,10 @@ function handlePlayQueue(connection)
 	command = playQueue.pop();
 	const dispatcher = connection.playFile("sounds/" + commands[command]).on("end", () => {
 		if (playQueue.length == 0) {
-			channel.leave();
-			channel = null;
+			if (channel != null){
+				channel.leave();
+				channel = null;
+			}
 		}
 		else
 		{
@@ -78,10 +80,20 @@ client.on('message', msg => {
 
 	if (msg.content.toLowerCase() === "!commands"){
 		commandsMessage = "";
+		commandsMessage = commandsMessage + "Special Commands:";
+		commandsMessage = commandsMessage + "!skip: skips the current queue";
+		commandsMessage = commandsMessage + "Audio Commands:";
 		Object.keys(commands).forEach(function(key) {
 			commandsMessage = commandsMessage + key + "\n";
 		});
 		msg.author.sendMessage("Current list of commands:" + "\n" + commandsMessage);
+	}
+	else if (msg.content.toLowerCase() === "!skip") {
+		if (channel != null) {
+			channel.leave();
+			channel = null;
+		}
+		playQueue = [];
 	}
 	else if (msg.content.toLowerCase() in commands){
 		playQueue.push(msg.content.toLowerCase());
