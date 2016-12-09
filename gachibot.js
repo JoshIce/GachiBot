@@ -80,9 +80,9 @@ client.on('message', msg => {
 
 	if (msg.content.toLowerCase() === "!commands"){
 		commandsMessage = "";
-		commandsMessage = commandsMessage + "Special Commands:";
-		commandsMessage = commandsMessage + "!skip: skips the current queue";
-		commandsMessage = commandsMessage + "Audio Commands:";
+		commandsMessage = commandsMessage + "Special Commands:\n";
+		commandsMessage = commandsMessage + "!skip: skips the current queue\n";
+		commandsMessage = commandsMessage + "Audio Commands:\n";
 		Object.keys(commands).forEach(function(key) {
 			commandsMessage = commandsMessage + key + "\n";
 		});
