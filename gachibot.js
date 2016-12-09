@@ -4,10 +4,6 @@ const fs = require('fs');
 var config = JSON.parse(
 	fs.readFileSync('config.json')
 );
-var winston = require('winston')
-var CronJob = require('cron').CronJob;
-winston.add(winston.transports.File, {filename: 'log.log' });
-winston.remove(winston.transports.Console)
 const prefix = "!";
 //TODO: Create a queue for
 var playQueue = [];
