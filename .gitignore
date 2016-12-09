@@ -48,4 +48,4 @@ jspm_packages
 
 # GachiBot Specific Ignores
 sounds/*.*
-config.js
+config.json
