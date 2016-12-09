@@ -9,6 +9,7 @@ var CronJob = require('cron').CronJob;
 winston.add(winston.transports.File, {filename: 'log.log' });
 winston.remove(winston.transports.Console)
 const prefix = "!";
+//TODO: Create a queue for
 var playQueue = [];
 
 client.on('error', (m) => {
@@ -18,12 +19,12 @@ client.on('error', (m) => {
 client.on("debug", (m) => {console.log("[debug]", m); });
 client.on("warn", (m) => {console.log("[warn]", m); });
 
-var eventify = function(arr, callback) {
-    arr.push = function(e) {
-        Array.prototype.push.call(arr, e);
-        callback(arr);
-    };
-};
+// var eventify = function(arr, callback) {
+//     arr.push = function(e) {
+//         Array.prototype.push.call(arr, e);
+//         callback(arr);
+//     };
+// };
 
 var async = {};
 async.forEach = function(o, cb) {
@@ -35,10 +36,6 @@ async.forEach = function(o, cb) {
   };
   next();
 };
-
-new CronJob('0,2 * * * *', function() {
-  console.log('You will see this message every two minutes');
-}, null, true, 'America/Los_Angeles');
 
 client.on('ready', () => {
   console.log('Server Running..');
@@ -65,20 +62,29 @@ client.on('message', msg => {
 		msg.author.sendMessage("Current list of commands:" + "\n" + commandsMessage);
 	}
 	else if (msg.content.toLowerCase() in commands){
-		var channel = msg.member.voiceChannel;
-		if (channel instanceof Discord.VoiceChannel) {
-			channel.join().then(connection => {
-				const dispatcher = connection.playFile("sounds/" + commands[msg.content.toLowerCase()]).on("end", () => {
-					channel.leave()
+		playQueue.push(msg.content.toLowerCase());
+		if (playQueue.length == 1){
+			var channel = msg.member.voiceChannel;
+			if (channel instanceof Discord.VoiceChannel) {
+				channel.join().then(connection => {
+					playQueue.forEach(item => {
+						const dispatcher = connection.playFile("sounds/" + commands[item]).on("end", () => {
+							playQueue.pop();
+							if (playQueue.length == 0) {
+								channel.leave();
+							};
+						});
+					});
+					// channel.leave();
 				});
-			});
+			};
 		};
 	};
 });
 
-eventify(playQueue, function(tempQueue){
-	return;
-});
+// eventify(playQueue, function(tempQueue){
+// 	return;
+// });
 
 require("./app.js")
 
