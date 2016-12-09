@@ -7,6 +7,8 @@ var config = JSON.parse(
 const prefix = "!";
 //TODO: Create a queue for
 var playQueue = [];
+var channel = null;
+var commands = {};
 
 client.on('error', (m) => {
 	console.log("[ERROR]", m);
@@ -37,12 +39,36 @@ client.on('ready', () => {
   console.log('Server Running..');
 });
 
+function handlePlayQueue(connection)
+{
+	//just in case...
+	if (playQueue.length == 0) 
+	{
+		console.log("debug", "handlePlayQueue called with playQueue of length 0");
+		return;
+	}
+
+	command = playQueue.pop();
+	const dispatcher = connection.playFile("sounds/" + commands[command]).on("end", () => {
+		if (playQueue.length == 0) {
+			channel.leave();
+			channel = null;
+		}
+		else
+		{
+			handlePlayQueue(connection);
+		}
+	});
+}
+
 client.on('message', msg => {
 	if (!msg.content.startsWith(prefix)) return;
   if (msg.author.bot) return;
 
 	let filenames = fs.readdirSync("sounds");
-	var commands = {};
+	// TODO shouldnt update this EVERY time
+	// 		update on the webserver instead
+	commands = {};
 	for (filename of filenames) {
 		let splitfile = filename.split(".")
 		if (splitfile[1] != "exe") {
@@ -59,22 +85,21 @@ client.on('message', msg => {
 	}
 	else if (msg.content.toLowerCase() in commands){
 		playQueue.push(msg.content.toLowerCase());
-		if (playQueue.length == 1){
-			var channel = msg.member.voiceChannel;
+		if (!channel){ // if this is the first thing in playQueue
+			channel = msg.member.voiceChannel;
 			if (channel instanceof Discord.VoiceChannel) {
 				channel.join().then(connection => {
-					playQueue.forEach(item => {
-						const dispatcher = connection.playFile("sounds/" + commands[item]).on("end", () => {
-							playQueue.pop();
-							if (playQueue.length == 0) {
-								channel.leave();
-							};
-						});
-					});
-					// channel.leave();
+					handlePlayQueue(connection);
 				});
-			};
-		};
+			}
+			else
+			{
+				//cant play to a nonvoice channel!
+				playQueue.pop();
+				channel = null;
+			}
+
+		}
 	};
 });
 
