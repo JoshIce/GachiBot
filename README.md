@@ -29,7 +29,7 @@ Save your config.json file.
 
 Now simply run `node gachibot.js` in your gachi-bot directory, and the bot should run.
 
-### Usage
+## Usage
 
 You are running a web server, so `localhost` on your machine should bring you to the website you will use to upload your audio files.
 
