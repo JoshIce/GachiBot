@@ -90,7 +90,7 @@ require("./app.js")
 
 client.on('disconnect', function(erMsg, code) {
     console.log('----- Bot disconnected from Discord with code', code, 'for reason:', erMsg, '-----');
-		client.login(config.key);
+		client.login(config.token);
 });
 
-client.login(config.key);
+client.login(config.token);
