@@ -96,7 +96,7 @@ client.on('message', msg => {
 		playQueue = [];
 	}
 	else if (msg.content.toLowerCase() in commands){
-		playQueue.push(msg.content.toLowerCase());
+		playQueue.unshift(msg.content.toLowerCase());
 		if (!channel){ // if this is the first thing in playQueue
 			channel = msg.member.voiceChannel;
 			if (channel instanceof Discord.VoiceChannel) {
