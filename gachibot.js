@@ -12,7 +12,6 @@ var commands = {};
 
 client.on('error', (m) => {
 	console.log("[ERROR]", m);
-	winston.log("[ERROR]", m);
 });
 client.on("debug", (m) => {console.log("[debug]", m); });
 client.on("warn", (m) => {console.log("[warn]", m); });
@@ -82,11 +81,11 @@ client.on('message', msg => {
 		commandsMessage = "";
 		commandsMessage = commandsMessage + "Special Commands:\n";
 		commandsMessage = commandsMessage + "!skip: skips the current queue\n";
-		commandsMessage = commandsMessage + "Audio Commands:\n";
+		commandsMessage = commandsMessage + "\nAudio Commands:\n";
 		Object.keys(commands).forEach(function(key) {
 			commandsMessage = commandsMessage + key + "\n";
 		});
-		msg.author.sendMessage("Current list of commands:" + "\n" + commandsMessage);
+		msg.author.sendMessage("Current list of commands:" + "\n\n" + commandsMessage);
 	}
 	else if (msg.content.toLowerCase() === "!skip") {
 		if (channel != null) {
