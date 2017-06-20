@@ -4,23 +4,48 @@
   <meta charset="utf-8">
   {% block head %}{% endblock %}
   {% block css %}{% endblock %}
+  <link rel="stylesheet" href="css/responsive-nav.css">
+  <link rel="stylesheet" type="text/css" href="css/newstyle.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   {% block jsincludes %}{% endblock %}
+	<script src="js/responsive-nav.js"></script>
+  <script src="js/nunjucks.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 {% block prebody %}{% endblock %}
-<nav>
-{% block nav %}{% endblock %}
+<nav role="navigation" id="nav" class="nav-collapse nav-collapse-0 closed" aria-hidden="false" style="transition: max-height 284ms; position: relative;">
+	<ul id="menu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/commands">Commands</a></li>
+    <li><a href="/login">Log In</a></li>
+ 	</ul>
+  {% block nav %}{% endblock %}
 </nav>
+<main class="main">
+{{ flashy() | safe}}
 <header>
 {% block header %}{% endblock %}
 </header>
-<main>
 {% block main %}{% endblock %}
-</main>
 <footer>
 {% block footer %}{% endblock %}
+<h5 class="trademark">Created by Vegakuma<h5>
 </footer>
+</main>
 {% block postbody %}{% endblock %}
 {% block js %}{% endblock %}
+<script>
+	var nav = responsiveNav(".nav-collapse", {
+
+  });
+</script>
+<script>
+  $( document ).ready(function() {
+      $('.flash-info').parent().css("background-color", "blue");
+      $('.flash-error').parent().css("background-color", "red");
+      $('.flash-success').parent().css("background-color", "green");
+  });
+</script>
 </body>
 </html>

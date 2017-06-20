@@ -1,43 +1,43 @@
 body {
 	background-color: #000;
+	text-align: center;
 }
 
 .title {
 	font-size: 48px;
 	color: #DDD;
-	text-align: center;
 }
 
 .img-responsive {
 	max-height: 35em;
-	height: auto;
+	width: 50%;
 	position: relative;
-	width: 60%;
-	left: 20%;
-	right: 20%;
+	margin: auto;
 }
 
 .form * {
 	width: 100%;
 }
 
+.form {
+	border: 1px solid white;
+	padding: 2em 1em;
+	max-width: 35em;
+	margin: auto;
+}
+
 .container {
-	position: absolute;
-	left: 20%;
-	right: 20%;
-	max-width: 60%;
-	margin-top: 2em;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .fileUpload {
   position: relative;
   overflow: hidden;
-	background-color: #DDD;
+	background-color: #FFF;
+	color: black;
 	text-align: center;
 	margin-top: 1em;
 }
+
 .fileUpload input.upload {
   position: absolute;
   top: 0;
@@ -48,6 +48,13 @@ body {
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
+}
+
+.trademark {
+	color: white;
+	width: 50%;
+	padding-left: 25%;
+	text-align: center;
 }
 
 .flashy {

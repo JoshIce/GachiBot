@@ -47,14 +47,10 @@ var _getAllFilesFromFolder = function(dir) {
 
 };
 
-//TODO: Possibly use CronJobs to scan the directory every two minutes (probably bad)
-new CronJob('2 * * * *', function() {
-  console.log('You will see this message every two minutes');
-}, null, true, 'America/Los_Angeles');
-
 //TODO: convert all files to .dca format for faster playback (https://github.com/nstafie/dca-rs)
 app.post('/upload', (req, res) => {
-	if (!(req.files.file.name == "") && req.fields['command'].length > 0) {
+	var newCommand = req.files.file.name;
+	if (!(newCommand == "") && req.fields['command'].length > 0) {
 		var currentFiles = _getAllFilesFromFolder("sounds/");
 		var fileExists = false;
 		for (var i=0; i < currentFiles.length; i++){
@@ -66,6 +62,9 @@ app.post('/upload', (req, res) => {
 		} else {
 			var nameext = req.files.file.path.split(".")
 			var newFileName = (req.fields['command'].toLowerCase()) + "." + (nameext[1].toLowerCase());
+			if (newFileName.charAt(0) == "!") {
+				newFileName = newFileName.slice(1);
+			}
 			fs.rename(req.files.file.path, 'sounds/' + newFileName);
 			res.redirect('/success');
 		};
@@ -96,6 +95,22 @@ app.get('/success', function(req, res) {
 app.get('/',function(req,res){
   res.render(path.join(__dirname+'/templates/index.njk'));
   //__dirname : It will resolve to your project folder.
+});
+
+app.get('/commands',function(req,res){
+	var currentFiles = _getAllFilesFromFolder("sounds/");
+
+	var commands = [];
+	for (var i=0; i < currentFiles.length; i++){
+		commands.push(currentFiles[i].split(".")[0].replace("sounds//", "").toLowerCase());
+	};
+
+  res.render(path.join(__dirname+'/templates/commands.njk'), {"commands": commands});
+});
+
+app.get('/login',function(req,res){
+
+  res.render(path.join(__dirname+'/templates/login.njk'));
 });
 
 app.listen(80, function() { console.log('listening'); });

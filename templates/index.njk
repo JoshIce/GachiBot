@@ -3,14 +3,10 @@
 <title>Jebaited</title>
 {% endblock %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="css/style.css">
 {% endblock %}
 {% block jsincludes %}
-<script src="js/nunjucks.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 {% endblock %}
 {% block prebody %}
-{{ flashy() | safe}}
 {% endblock %}
 {% block header %}
 {% endblock %}
@@ -27,14 +23,7 @@
   </form>
 </div>
 {% endblock %}
-{% block js %}
-<script>
-  $( document ).ready(function() {
-      $('.flash-info').parent().css("background-color", "blue");
-      $('.flash-error').parent().css("background-color", "red");
-      $('.flash-success').parent().css("background-color", "green");
-  });
-</script>
+{% block footer %}
 {% endblock %}
-</body>
-</html>
+{% block js %}
+{% endblock %}
