@@ -1,4 +1,4 @@
-gachi-bot is a Discord bot that allows you to upload and play custom sounds on your Discord server.
+GachiBot is a Discord bot that allows you to upload and play custom sounds on your Discord server.
 
 ## Requirements
 
