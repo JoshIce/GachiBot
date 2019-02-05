@@ -4,6 +4,10 @@ gachi-bot is a Discord bot that allows you to upload and play custom sounds on y
 
 You will need [Node](https://nodejs.org/en/).
 
+If you are running this on Windows, you must be able to build the packages using a C++ compiler.
+Running `npm install --global --production windows-build-tools` will solve most issues.
+Running `npm config msvs_version 2017 --global` will tell npm to use these build tools permanently. (2017 being the current version)
+
 Make sure you have [ffmpeg](https://ffmpeg.org/download.html) and have it [added to your path](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg).
 
 ## Installation
