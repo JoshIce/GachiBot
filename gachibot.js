@@ -20,12 +20,21 @@ process.on("unhandledRejection", (reason, promise) => {
 	console.trace();
 });
 
-// var eventify = function(arr, callback) {
-//     arr.push = function(e) {
-//         Array.prototype.push.call(arr, e);
-//         callback(arr);
-//     };
-// };
+
+
+let queues = new Discord.Collection();
+// queues.set(guildID, queueObject);
+// queues.get(guildID);
+/* when a message is sent, and it is varified as a command,
+	 create an object that stores the connection to the channel,
+	 the current queue for that channel. Then, store the object in
+	 a Collection mapped to the guildID. When another command is sent,
+	 check if the guild already has a queue. If so, simply add the command
+	 to that queue. Change skip, so that it skips only the queue on the
+	 server the message was sent from. This might require storing the channel
+	 in object. */
+
+
 
 // TODO Normalize the levels of all audio files in sounds folder
 // Convert them to mp3s: http://stackoverflow.com/questions/40233300/how-to-change-mp3-file-to-wav-file-in-node-js
@@ -107,6 +116,7 @@ client.on('message', msg => {
 		playQueue = [];
 	}
 
+	//Cannot change channels if a queue already exists.
 	if (msg.author.id === msg.guild.ownerID) {
 		if (msg.content.includes(" ")){
 			var i = msg.content.indexOf(' ');

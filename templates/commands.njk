@@ -15,9 +15,9 @@
 {% endblock %}
 {% block main %}
 <div style="width: 50%; padding-left: 25%; text-align: left;">
-  <h1 style="color:#999; border-bottom: 1px solid rgba(170, 170, 170, .4)">!skip: skips the current queue</h1>
+  <h3 style="color:#999; border-bottom: 1px solid rgba(170, 170, 170, .4)">!skip: skips the current queue</h3>
   {% for command in commands %}
-  <h1 style="color:#999; border-bottom: 1px solid rgba(170, 170, 170, .4)">!{{ command }}</h1>
+  <h3 style="color:#999; border-bottom: 1px solid rgba(170, 170, 170, .4)">!{{ command }}</h3>
   {% endfor %}
 </div>
 {% endblock %}
