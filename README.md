@@ -1,17 +1,21 @@
-gachi-bot is a Discord bot that allows you to upload and play custom sounds on your Discord server.
+GachiBot is a Discord bot that allows you to upload and play custom sounds on your Discord server.
 
 ## Requirements
 
 You will need [Node](https://nodejs.org/en/).
 
+If you are running this on Windows, you must be able to build the packages using a C++ compiler.
+Running `npm install --global --production windows-build-tools` will solve most issues.
+Running `npm config msvs_version 2017 --global` will tell npm to use these build tools permanently. (2017 being the current version)
+
 Make sure you have [ffmpeg](https://ffmpeg.org/download.html) and have it [added to your path](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg).
 
 ## Installation
-Clone the git repository into a folder named gachi-bot.
+Clone the git repository.
 
-cd to the gachi-bot folder and run `npm install`
+cd to the GachiBot folder and run `npm install`
 
-Create a file called `config.json` in your gachi-bot directory.
+Create a file called `config.json` in your GachiBot directory.
 
 Then put this in your `config.json` file:
 
@@ -27,7 +31,7 @@ and TOKEN is the token for your discord bot.
 
 Save your config.json file.
 
-Now simply run `node gachibot.js` in your gachi-bot directory, and the bot should run.
+Now simply run `node gachibot.js` in your GachiBot directory, and the bot should run.
 
 ## Usage
 
