@@ -48,6 +48,13 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
+#Visual Studio Code Config
+.vscode
+
+#npm dependency lock file
+package-lock.json
+
 # GachiBot Specific Ignores
 sounds/*.*
 config.json
+daemon
